@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/assets/images/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Glomer Pimentel</title>
+    <script src="https://unpkg.com/scrollreveal"></script>
+    <style>
+      
+      body{
+        overflow-x: hidden;
+    }
+@media only screen and (max-width:540px){
+    .image {
+    margin: auto 0;
+    width: 280px;
+    height: 280px;
+    overflow: hidden; /* Ensure no overflow if cropping */
+    }
+
+    .image img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover; /* Cover ensures the image covers the container while preserving aspect ratio */
+        object-position: top; /* Keeps the top part visible */
+    }
+  }.parent {
+    display: grid;
+    place-items: center;
+}
+
+.image {
+    width: 280px;
+    height: 280px;
+    overflow: hidden; /* Ensure no overflow if cropping */
+}
+
+.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Cover ensures the image covers the container while preserving aspect ratio */
+    object-position: top; /* Keeps the top part visible */
+}
+    </style>
+  </head>
+  <body class="dark:text-gray-200 dark:bg-slate-900">
+    <div id="app"></div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>

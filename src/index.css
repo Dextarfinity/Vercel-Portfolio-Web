@@ -1,0 +1,298 @@
+@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200..700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@100..900&family=Oswald:wght@200..700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+@import '@fortawesome/fontawesome-free/css/all.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+}
+
+.btn {
+  @apply px-3 py-2.5 shadow-xl z-10 inline-flex items-center gap-2 w-fit duration-300;
+}
+
+.btn-filled {
+  @apply rounded bg-primary border-2 border-primary text-white;
+}
+
+.btn-outline {
+  @apply border-2 border-gray-600 dark:text-gray-100  text-gray-600 shadow-xl leading-6 dark:bg-slate-800 bg-white  rounded-lg font-bold;
+}
+
+html {
+  @apply font-Oswald overflow-x-hidden;
+  scroll-behavior: smooth;
+  scroll-padding-top: 60px;
+}
+
+section {
+  @apply py-7;
+}
+
+button:hover {
+  @apply scale-95 duration-200;
+}
+
+button,
+nav,
+p,
+address {
+  @apply font-Inter font-medium text-[0.87rem];
+}
+
+h3 {
+  @apply md:text-2xl text-xl;
+}
+a i {
+  @apply dark:bg-slate-800 bg-gray-100 p-2 rounded-full hover:!bg-primary hover:text-white duration-300;
+}
+
+button i {
+  @apply p-0;
+}
+
+input,
+textarea {
+  @apply border dark:border-gray-500 rounded placeholder:text-sm font-Poppins outline-none py-2 px-3 mb-4 resize-none bg-transparent;
+}
+
+body{
+    overflow-x: hidden;
+}
+
+:root {
+    --body-color: rgb(250, 250, 250);
+    --color-white: rgb(255, 255, 255);
+
+    --text-color-second: rgb(68, 68, 68);
+    --text-color-third: rgb(30, 159, 79);
+
+    --first-color: rgb(110, 87, 224);
+    --first-color-hover: rgb(40, 91, 212);
+
+    --second-color: rgb(0, 201, 255);
+    --third-color: rgb(192, 166, 49);
+    --first-shadow-color: rgba(0, 0, 0, .1);
+}
+.typedTexts{
+    text-transform: capitalize;
+}
+
+.image{
+    margin: auto 0;
+    width: 380px;
+    height: 380px;
+    border-radius: 55% 45% 55% 45%;
+    animation: imgFloat 7s ease-in-out infinite;
+}
+.image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Or contain, depending on how you want the image to behave */
+    object-position: center; /* Keep the top part visible */
+}
+@keyframes imgFloat {
+    50%{
+        transform: translateY(10px);
+        border-radius: 45% 55% 45% 55%;
+    }
+}
+
+.skills-box {
+    margin: 10px;
+}
+
+.skills-header {
+    margin-bottom: 30px;
+}
+
+.skills-list {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 5px;
+}
+
+.skills-list span {
+    font-size: 14px;
+    background: var(--first-color);
+    color: #e0aaff;
+    padding: 2px 10px;
+    border-radius: 5px;
+}
+
+.project-container {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+.project-box {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    width: 30%;
+    height: 250px;
+    background: var(--color-white); /* Ensure background is readable */
+    border-radius: 20px;
+    box-shadow: 0px 2px 5px 0px rgba(0, 0, 0, 0.25);
+    backdrop-filter: blur(20px);
+    overflow: hidden;
+}
+
+.project-box i {
+    font-size: 50px;
+    color: #cfadff;
+    margin-bottom: 25px;
+}
+
+.project-box label {
+    font-size: 15px;
+    color: var(--text-color-second); /* Adjusted color for readability */
+    justify-content: center;
+    align-content: center;
+    text-align: center; /* This will center the text */
+    display: block; /* Ensure the label behaves as a block element for text alignment */
+}
+
+.project-box::after,
+.contact-info::after {
+    content: "";
+    position: absolute;
+    background: #cfadff; /* Ensure overlay is visible in dark mode */
+    width: 100%;
+    height: 100%;
+    transition: .4s;
+    z-index: 1;
+    bottom: -100%;
+}
+
+.project-box:hover::after,
+.contact-info:hover::after {
+    bottom: 0;
+}
+
+.project-box:hover > i,
+.project-box:hover > h3,
+.project-box:hover > label {
+    color: var(--color-white); /* Ensure text is visible on hover */
+    z-index: 2;
+    transition: .4s;
+}
+
+.project-box h3{
+    color: var(--text-color-second);
+}
+
+
+/* RESPONSIVENESS */
+@media only screen and (max-width:1024px){
+    .featured-text{
+        padding: 0;
+    }
+}
+
+@media only screen and (max-width:900px){
+    .nav-button{
+        display: none;
+    }
+    .nav-menu.responsive{
+        left: 0;
+    }
+    .nav-menu{
+        top: 80px;
+        position: fixed;
+        left: -100%;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        background: rgba(255,255,255,.7);
+        backdrop-filter: blur(20px);
+        width: 100%;
+        min-height: 450px;
+        height: 90vh;
+        transition: .3s;
+    }
+    .nav_menu_list{
+        flex-direction: column;
+    }
+    .nav-menu-btn{
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    .featured-box{
+        flex-direction: column;
+        justify-content: center;
+        height: 100vh;
+    }
+    .featured-text{
+        width: 100%;
+        order: 2;
+        justify-content: center;
+        align-content: flex-start;
+        min-height: 60vh;
+    }
+    .social_icons{
+        margin-top: 2em;
+    }
+    .about-info, .contact-info{
+        width: 100%;
+    }
+    .project-container{
+        justify-content: center;
+    }
+    .project-box{
+        width: 80%;
+    }
+    /* Set .image img size to 380px for medium screens */
+    .image img{
+        width: 380px;
+        height: 380px;
+    }
+}
+
+@media only screen and (max-width:540px){
+    .featured-name{
+        font-size: 40px;
+    }
+    .project-box{
+        width: 100%;
+    }
+    .form-inputs{
+        flex-direction: column;
+    }
+    .input-field{
+        width: 100%;
+    }
+    .bottom-footer{
+        font-size: 10px;
+    }
+    .middle-footer .footer-menu{
+        display: flex;
+        font-size: 12px;
+    }
+    nav .nav-menu-btn{
+        padding-inline: 12vw;
+    }
+    main{
+        overflow-x: hidden;
+    }
+    .contact-info .emailcontact{
+        font-size: 12px;
+    }
+    /* Set .image img size to 380px for small screens */
+    .image img{
+        width: 380px;
+        height: 380px;
+    }
+}
+
