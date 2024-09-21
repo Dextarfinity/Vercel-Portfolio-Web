@@ -42,6 +42,11 @@
   </nav>
 </header>
 
+<div :class="['transparency fixed top-5 left-1/2 transform -translate-x-1/2 z-50 p-4 rounded shadow-lg transition-opacity duration-500', toastVisible ? 'opacity-100' : 'opacity-0', toastColor]"
+     @transitionend="onTransitionEnd">
+  <span>{{ toastMessage }}</span>
+</div>
+
 <span
   id="backdrop"
   class="fixed h-screen hidden bg-black/10 backdrop-blur-sm z-[997] inset-0 w-full"
@@ -269,21 +274,23 @@
         <h3 class="font-semibold text-3xl">
           Send Me A <br /><span class="text-primary">Message</span>
         </h3>
-        <form @submit.prevent="handleSubmit" class="*:flex *:flex-col *:gap-1 mt-5 md:w-2/3 w-full" id="contactForm">
-          <div>
-            <label for="name">Name</label>
-            <input v-model="name" type="text" id="name" placeholder="Enter your name" />
-          </div>
-          <div>
-            <label for="email">Email Address</label>
-            <input v-model="email" type="email" id="email" placeholder="Enter your email address" />
-          </div>
-          <div>
-            <label for="msg">Message</label>
-            <textarea v-model="message" id="msg" placeholder="Enter your message"></textarea>
-          </div>
-          <button type="submit" class="btn btn-filled ml-auto">Send</button>
-        </form>
+        <form @submit.prevent="handleSubmit" class="flex flex-col gap-4 mt-5 md:w-2/3 w-full" id="contactForm">
+        <div>
+          <label for="name" class="text-gray-700">Name</label>
+          <input v-model="name" type="text" id="name" class="mt-1 p-2 w-full border rounded-md" placeholder="Enter your name" />
+        </div>
+        <div>
+          <label for="email" class="text-gray-700">Email Address</label>
+          <input v-model="email" type="email" id="email" class="mt-1 p-2 w-full border rounded-md" placeholder="Enter your email address" />
+        </div>
+        <div>
+          <label for="msg" class="text-gray-700">Message</label>
+          <textarea v-model="message" id="msg" class="mt-1 p-2 w-full border rounded-md" placeholder="Enter your message"></textarea>
+        </div>
+        <button type="submit" class="btn btn-filled ml-auto bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+          Send
+        </button>
+      </form>
       </div>
       <div
         class="lastpart dark:bg-gray-700 bg-white py-12 px-7 md:absolute lg:-right-9 right-28 rounded-xl shadow-xl md:w-2/5 h-5/6 top-28 w-full mx-auto"
@@ -348,210 +355,233 @@
   </ul>
 </footer>
 </template>
-<script>
-import Typed from 'typed.js';
-import ScrollReveal from 'scrollreveal';
-import { downloadFile } from './supabaseJS';
-import { supabase } from '../supabaseClient'; // Import the Supabase client
 
-export default {
-  name: 'App',
-  data() {
-    return {
-      name: '',    // Bound to the Name input field
-      email: '',   // Bound to the Email input field
-      message: ''  // Bound to the Message textarea field
-    };
-  },
-  mounted() {
-    const header = document.querySelector("header");
+  <script>
+  import Typed from 'typed.js';
+  import ScrollReveal from 'scrollreveal';
+  import { downloadFile } from './supabaseJS';
+  import { supabase } from '../supabaseClient'; // Import the Supabase client
 
-    const toggleClasses = (element, classes, condition) => {
-      classes.forEach((className) => {
-        element.classList.toggle(className, condition);
+  export default {
+    name: 'App',
+    data() {
+      return {
+        name: '',    // Bound to the Name input field
+        email: '',   // Bound to the Email input field
+        message: '', // Bound to the Message textarea field
+        toastVisible: false,  // Controls toast visibility
+        toastMessage: '',     // Message to display in the toast
+        toastColor: '',       // Color of the toast based on type (success/error)
+      };
+    },
+    mounted() {
+      const header = document.querySelector("header");
+
+      const toggleClasses = (element, classes, condition) => {
+        classes.forEach((className) => {
+          element.classList.toggle(className, condition);
+        });
+      };
+
+      window.addEventListener("scroll", () => {
+        toggleClasses(
+          header,
+          [
+            "shadow-lg",
+            "dark:sm:bg-slate-900",
+            "dark:bg-slate-800",
+            "dark:text-white",
+            "bg-white",
+          ],
+          window.scrollY > 0
+        );
       });
-    };
 
-    window.addEventListener("scroll", () => {
-      toggleClasses(
-        header,
-        [
-          "shadow-lg",
-          "dark:sm:bg-slate-900",
-          "dark:bg-slate-800",
-          "dark:text-white",
-          "bg-white",
-        ],
-        window.scrollY > 0
+      const ELE = document.documentElement;
+      const mobileNav = document.getElementById("mobile-nav");
+      const mobileNavItem = document.querySelectorAll("#mobile-nav li");
+      const backDrop = document.getElementById("backdrop");
+      const menuBar = document.querySelector("#menubar");
+      const menuBarIcon = document.querySelector("#menubar i");
+
+      document.querySelectorAll(".theme-switch").forEach((item) =>
+        item.addEventListener("click", () => {
+          ELE.classList.toggle("dark");
+          ELE.classList.contains("dark")
+            ? localStorage.setItem("theme", "dark")
+            : localStorage.setItem("theme", "light");
+        })
       );
-    });
 
-    const ELE = document.documentElement;
-    const mobileNav = document.getElementById("mobile-nav");
-    const mobileNavItem = document.querySelectorAll("#mobile-nav li");
-    const backDrop = document.getElementById("backdrop");
-    const menuBar = document.querySelector("#menubar");
-    const menuBarIcon = document.querySelector("#menubar i");
+      const options = [backDrop, menuBar, ...mobileNavItem];
 
-    document.querySelectorAll(".theme-switch").forEach((item) =>
-      item.addEventListener("click", () => {
-        ELE.classList.toggle("dark");
-        ELE.classList.contains("dark")
-          ? localStorage.setItem("theme", "dark")
-          : localStorage.setItem("theme", "light");
-      })
-    );
+      options.forEach((item) =>
+        item.addEventListener("click", () => {
+          mobileNav.classList.toggle("h-0");
+          mobileNav.classList.toggle("h-96");
+          menuBarIcon.classList.toggle("fa-xmark");
+          menuBarIcon.classList.toggle("fa-bars");
+          backDrop.classList.toggle("hidden");
+          document.documentElement.classList.toggle("overflow-hidden");
+        })
+      );
 
-    const options = [backDrop, menuBar, ...mobileNavItem];
+      ELE.classList.add(localStorage.getItem("theme"));
 
-    options.forEach((item) =>
-      item.addEventListener("click", () => {
-        mobileNav.classList.toggle("h-0");
-        mobileNav.classList.toggle("h-96");
-        menuBarIcon.classList.toggle("fa-xmark");
-        menuBarIcon.classList.toggle("fa-bars");
-        backDrop.classList.toggle("hidden");
-        document.documentElement.classList.toggle("overflow-hidden");
-      })
-    );
+      var typingEffect1 = new Typed(".typedTexts", {
+        strings: ["Video Editor", "Logo Creator", "Developer", "Web Designer", " "],
+        loop: true,
+        typeSpeed: 120,
+        backSpeed: 80,
+        backDelay: 2000
+      });
 
-    ELE.classList.add(localStorage.getItem("theme"));
+      var typingEffect2 = new Typed(".typedText", {
+        strings: ["Dexter", "Glomer", "Dexter", " "],
+        loop: true,
+        typeSpeed: 100,
+        backSpeed: 80,
+        backDelay: 2000
+      });
 
-    var typingEffect1 = new Typed(".typedTexts", {
-      strings: ["Video Editor", "Logo Creator", "Developer", "Web Designer", " "],
-      loop: true,
-      typeSpeed: 120,
-      backSpeed: 80,
-      backDelay: 2000
-    });
+      /* ----- ## -- SCROLL REVEAL ANIMATION -- ## ----- */
+      const sr = ScrollReveal({
+        origin: 'top',
+        distance: '80px',
+        duration: 2000,
+        reset: true
+      });
 
-    var typingEffect2 = new Typed(".typedText", {
-      strings: ["Dexter", "Glomer", "Dexter", " "],
-      loop: true,
-      typeSpeed: 100,
-      backSpeed: 80,
-      backDelay: 2000
-    });
+      sr.reveal('header', {});
+      sr.reveal('.homeall', { delay: 100 });
+      sr.reveal('.projecthead', { delay: 100 });
+      sr.reveal('.contacthead', { delay: 100 });
+      sr.reveal('.contactdiv', { delay: 300 });
 
-    /* ----- ## -- SCROLL REVEAL ANIMATION -- ## ----- */
-    const sr = ScrollReveal({
-      origin: 'top',
-      distance: '80px',
-      duration: 2000,
-      reset: true
-    });
+      const srLeft = ScrollReveal({
+        origin: 'left',
+        distance: '80px',
+        duration: 2000,
+        reset: true
+      });
 
-    sr.reveal('header', {});
-    sr.reveal('.homeall', { delay: 100 });
-    sr.reveal('.projecthead', { delay: 100 });
-    sr.reveal('.contacthead', { delay: 100 });
-    sr.reveal('.contactdiv', { delay: 300 });
+      srLeft.reveal('.about1', { delay: 200 });
+      srLeft.reveal('.about3', { delay: 200 });
 
-    const srLeft = ScrollReveal({
-      origin: 'left',
-      distance: '80px',
-      duration: 2000,
-      reset: true
-    });
+      const srRight = ScrollReveal({
+        origin: 'right',
+        distance: '80px',
+        duration: 2000,
+        reset: true
+      });
 
-    srLeft.reveal('.about1', { delay: 200 });
-    srLeft.reveal('.about3', { delay: 200 });
+      srRight.reveal('.about2', { delay: 200 });
+      srRight.reveal('.project1', { delay: 400 });
+      srRight.reveal('.project2', { delay: 200 });
+      srRight.reveal('.project3', { delay: 50 });
+      srRight.reveal('.lastpart', { delay: 100 });
 
-    const srRight = ScrollReveal({
-      origin: 'right',
-      distance: '80px',
-      duration: 2000,
-      reset: true
-    });
+      // Hire Me function
+      function hireMe() {
+        const email = 'xdfeverharsh@gmail.com';
+        const subject = 'Hiring Inquiry'; // Optional: Set a default subject
+        const body = 'Hello, I would like to hire you for...'; // Optional: Set a default body
 
-    srRight.reveal('.about2', { delay: 200 });
-    srRight.reveal('.project1', { delay: 400 });
-    srRight.reveal('.project2', { delay: 200 });
-    srRight.reveal('.project3', { delay: 50 });
-    srRight.reveal('.lastpart', { delay: 100 });
+        // Create a Gmail URL
+        const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
 
-    // Hire Me function
-    function hireMe() {
-      const email = 'xdfeverharsh@gmail.com';
-      const subject = 'Hiring Inquiry'; // Optional: Set a default subject
-      const body = 'Hello, I would like to hire you for...'; // Optional: Set a default body
+        // Redirect to the Gmail link
+        window.location.href = gmailLink;
+      }
 
-      // Create a Gmail URL
-      const gmailLink = `https://mail.google.com/mail/?view=cm&fs=1&to=${email}&su=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+      // Attach the hireMe function to the button's onclick event
+      document.getElementById('hireMeButton').onclick = hireMe;
+    },
+    methods: {
+      showToast(message, type) {
+      this.toastMessage = message;
+      this.toastColor = type === 'success' ? 'bg-green-500 text-white' : 'bg-red-500 text-white';
+      this.toastVisible = true;
 
-      // Redirect to the Gmail link
-      window.location.href = gmailLink;
-    }
-
-    // Attach the hireMe function to the button's onclick event
-    document.getElementById('hireMeButton').onclick = hireMe;
-  },
-  methods: {
+      setTimeout(() => {
+        this.hideToast();
+      }, 3000);
+    },
+    hideToast() {
+      this.toastVisible = false;
+    },
     async handleSubmit() {
-      // Check if all form fields are filled
+      // Basic regex for email validation
+      const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+      const nameRegex = /^[A-Za-z\s]+$/;
+      const messageRegex = /^[A-Za-z\s,.\(\)!?\-]+$/;
+      // Check for empty fields
+      
+      if (!nameRegex.test(this.name)) {
+        this.showToast('Name can only contain letters and spaces.', 'danger');
+        return;
+      }
+
+      // Validate email format
+      if (!emailRegex.test(this.email)) {
+        this.showToast('Please enter a valid email address.', 'danger');
+        return;
+      }
+
+      if (!messageRegex.test(this.message)) {
+        this.showToast('Message can only contain letters, spaces, commas, periods, parentheses, exclamation points, question marks, and dashes.', 'danger');
+        return;
+      }
+
       if (!this.name || !this.email || !this.message) {
-        alert('Please fill in all the fields.');
+        this.showToast('Please fill in all the fields.', 'danger');
         return;
       }
 
       try {
-        // Insert form data into the 'messages' table in Supabase
         const { data, error } = await supabase
           .from('messages')
           .insert([{ name: this.name, email: this.email, message: this.message }]);
 
         if (error) {
-          console.error('Error inserting data:', error.message);
-          alert('An error occurred while submitting the form. Please try again.');
+          console.error('Supabase insert error:', error);
+          this.showToast('An error occurred while submitting the form. Please try again.', 'danger');
           return;
         }
 
-        // Successfully inserted the data
-        console.log('Form submitted successfully:', data);
-        alert('Thank you for your message!');
-
-        // Reset the form fields after successful submission
+        this.showToast('Thank you for your message!', 'success');
         this.name = '';
         this.email = '';
         this.message = '';
-        
       } catch (error) {
-        console.error('Error submitting form:', error);
-        alert('An error occurred while submitting the form.');
+        console.error('General form submission error:', error);
+        this.showToast('An error occurred while submitting the form.', 'danger');
       }
     },
 
-    async handleDownload() {
-      try {
-        await downloadFile(); // Call the function to download the file
-      } catch (error) {
-        console.error('Error downloading file:', error);
+
+      async handleDownload() {
+        try {
+          await downloadFile(); // Call the function to download the file
+          this.showToast('File downloaded successfully!', 'success');
+        } catch (error) {
+          console.error('Error downloading file:', error);
+          this.showToast('Error downloading file.', 'danger');
+        }
       }
     }
-  }
-};
-</script>
+  };
+  </script>
 
 <style scoped>
+.transparency{
+  z-index: 9999;
+}
+body {
+    overflow-x: hidden;
+}
 
-       body{
-        overflow-x: hidden;
-    }
-@media only screen and (max-width:540px){
-    .image {
-    margin: auto 0;
-    width: 280px;
-    height: 280px;
-    overflow: hidden; /* Ensure no overflow if cropping */
-    }
-
-    .image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover; /* Cover ensures the image covers the container while preserving aspect ratio */
-        object-position: top; /* Keeps the top part visible */
-    }
-  }.parent {
+.parent {
     display: grid;
     place-items: center;
 }
@@ -568,4 +598,14 @@ export default {
     object-fit: cover; /* Cover ensures the image covers the container while preserving aspect ratio */
     object-position: top; /* Keeps the top part visible */
 }
+
+/* Responsive Design for Mobile */
+@media only screen and (max-width: 540px) {
+    .image {
+        width: 100%; /* Allow image to scale with screen size */
+        max-width: 280px;
+        height: auto; /* Maintain aspect ratio */
+    }
+}
+
 </style>
