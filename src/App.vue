@@ -110,7 +110,7 @@
         <button
           class="font-semibold dark:text-gray-200 border-b-2 border-gray-700 ml-4"
         >
-          <i class="fa-solid fa-up-right-from-square"></i> See Portfolio
+        <a href="https://github.com/Dextarfinity"><i class="fa-solid fa-up-right-from-square"></i> See Portfolio</a>
         </button>
       </div>
       <div class="md:w-96 md:ml-auto flex mt-9 gap-2 dark:text-gray-300">
