@@ -94,24 +94,20 @@
         </div>
         <div>
           <h5 class="font-medium text-gray-600 dark:text-gray-200 mt-5">Hello Welcome</h5>
-          <h1
-            class="sm:text-5xl text-4xl dark:text-white !leading-normal relative font-medium"
-          >
+          <h1 class="sm:text-5xl text-4xl !leading-normal relative font-medium">
             I'm <span class="text-primary typedText"></span> <br />
             <span class="typedTexts"></span>
           </h1>
           <button id="hireMeButton" class="btn btn-filled mt-5">
             <i class="fa-regular fa-envelope"></i> Hire Me
           </button>
-          <button
-            class="font-semibold dark:text-gray-200 border-b-2 border-gray-700 ml-4"
-          >
+          <button class="font-semibold border-b-2 border-gray-700 ml-4">
             <a href="https://github.com/Dextarfinity"
               ><i class="fa-solid fa-up-right-from-square"></i> See Portfolio</a
             >
           </button>
         </div>
-        <div class="md:w-96 md:ml-auto flex mt-9 gap-2 dark:text-gray-300">
+        <div class="md:w-96 md:ml-auto flex mt-9 gap-2">
           <i class="fa-solid fa-border-all mt-0.5 md:inline-block hidden"></i>
           <p class="text-xs text-balance leading-5 max-w-md px-2 mx-auto">
             Experienced frontend developer with a passion of well user-friendly website
