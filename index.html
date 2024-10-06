@@ -1,4 +1,4 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
@@ -7,45 +7,148 @@
     <title>Glomer Pimentel</title>
     <script src="https://unpkg.com/scrollreveal"></script>
     <style>
-      
-      body{
-        overflow-x: hidden;
-    }
-@media only screen and (max-width:540px){
-    .image {
-    margin: auto 0;
-    width: 280px;
-    height: 280px;
-    overflow: hidden; /* Ensure no overflow if cropping */
-    }
+      .loader {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: white;
+        transition: opacity 0.75s, visibility 0.75s;
+        z-index: 9999;
+      }
 
-    .image img {
+      /* Light Mode Loader */
+      .light-loader {
+        background-color: #f3f4f6; /* Light background */
+        color: #000; /* Dark text or spinner */
+      }
+
+      /* Dark Mode Loader */
+      .dark-loader {
+        background-color: #111827; /* Dark background */
+        color: #fff; /* Light text or spinner */
+      }
+
+      /* Hidden State for the Loader */
+      .loader--hidden {
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      body {
+        overflow-x: hidden;
+      }
+      @media only screen and (max-width: 540px) {
+        .image {
+          margin: auto 0;
+          width: 280px;
+          height: 280px;
+          overflow: hidden; /* Ensure no overflow if cropping */
+        }
+
+        .image img {
+          width: 100%;
+          height: 100%;
+          object-fit: cover; /* Cover ensures the image covers the container while preserving aspect ratio */
+          object-position: top; /* Keeps the top part visible */
+        }
+      }
+      .parent {
+        display: grid;
+        place-items: center;
+      }
+
+      .image {
+        width: 280px;
+        height: 280px;
+        overflow: hidden; /* Ensure no overflow if cropping */
+      }
+
+      .image img {
         width: 100%;
         height: 100%;
         object-fit: cover; /* Cover ensures the image covers the container while preserving aspect ratio */
         object-position: top; /* Keeps the top part visible */
-    }
-  }.parent {
-    display: grid;
-    place-items: center;
-}
-
-.image {
-    width: 280px;
-    height: 280px;
-    overflow: hidden; /* Ensure no overflow if cropping */
-}
-
-.image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Cover ensures the image covers the container while preserving aspect ratio */
-    object-position: top; /* Keeps the top part visible */
-}
+      }
     </style>
   </head>
   <body class="">
+    <div class="loader">
+      <div
+        class="w-32 aspect-square rounded-full relative flex justify-center items-center animate-[spin_3s_linear_infinite] z-40 before:animate-[spin_2s_linear_infinite] before:absolute before:w-[60%] before:aspect-square before:rounded-full before:z-[80] before:bg-[conic-gradient(#5B21B6_0deg,#5B21B6_270deg,transparent_180deg,transparent_360deg)] after:absolute after:w-3/4 after:aspect-square after:rounded-full after:z-[60] after:animate-[spin_3s_linear_infinite] after:bg-[conic-gradient(#6b46c1_0deg,#6b46c1_180deg,transparent_180deg,transparent_360deg)]"
+      >
+        <span
+          class="absolute w-[85%] aspect-square rounded-full z-[60] animate-[spin_5s_linear_infinite]"
+        >
+        </span>
+      </div>
+    </div>
+
     <div id="app"></div>
+
+    <script>
+      const ELE = document.documentElement;
+
+      window.addEventListener("load", () => {
+        const loader = document.querySelector(".loader");
+        const loaderDiv = document.querySelector(".loader div");
+        const span = document.querySelector(".loader span");
+
+        // Check local storage and set theme for loader accordingly
+        const savedTheme = localStorage.getItem("theme");
+        if (savedTheme === "dark" || ELE.classList.contains("dark")) {
+          loader.classList.add("dark-loader"); // Add dark-specific loader styles
+
+          // Dark mode background for the loader div
+          loaderDiv.style.background =
+            "conic-gradient(#1E293B 0deg, #1E293B 300deg, transparent 270deg, transparent 360deg)";
+          loaderDiv.style.setProperty(
+            "--before-bg",
+            "conic-gradient(#1E293B 0deg, #1E293B 270deg, transparent 180deg, transparent 360deg)"
+          );
+          loaderDiv.style.setProperty(
+            "--after-bg",
+            "conic-gradient(#1E293B 0deg, #1E293B 180deg, transparent 180deg, transparent 360deg)"
+          );
+
+          // Dark mode background for the span
+          span.style.background =
+            "conic-gradient(#a78bfa 0deg, #a78bfa 180deg, transparent 180deg, transparent 360deg)";
+        } else {
+          loader.classList.add("light-loader"); // Add light-specific loader styles
+
+          // Light mode background for the loader div
+          loaderDiv.style.background =
+            "conic-gradient(white 0deg, white 300deg, transparent 270deg, transparent 360deg)";
+          loaderDiv.style.setProperty(
+            "--before-bg",
+            "conic-gradient(#6b46c1 0deg, #6b46c1 270deg, transparent 180deg, transparent 360deg)"
+          );
+          loaderDiv.style.setProperty(
+            "--after-bg",
+            "conic-gradient(#6b46c1 0deg, #6b46c1 180deg, transparent 180deg, transparent 360deg)"
+          );
+
+          // Light mode background for the span
+          span.style.background =
+            "conic-gradient(#a78bfa 0deg, #a78bfa 180deg, transparent 180deg, transparent 360deg)";
+        }
+
+        // Display the loader for 3 seconds before hiding it
+        setTimeout(() => {
+          loader.classList.add("loader--hidden");
+
+          loader.addEventListener("transitionend", () => {
+            document.body.removeChild(loader);
+          });
+        }, 3000); // 3000 milliseconds = 3 seconds
+      });
+    </script>
+
     <script type="module" src="/src/main.js"></script>
   </body>
 </html>
