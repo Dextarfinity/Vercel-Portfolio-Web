@@ -437,16 +437,24 @@ export default {
     const menuBar = document.querySelector("#menubar");
     const menuBarIcon = document.querySelector("#menubar i");
 
-    // Remove any theme detection code and force dark mode by default
-    document.addEventListener("DOMContentLoaded", function () {
-      document.documentElement.classList.add("dark");
+    // Force dark mode on page load
+    ELE.classList.add("dark");
+    ELE.classList.add("text-gray-200", "bg-slate-900"); // Add dark mode styles
 
-      const themeToggler = document.getElementById("theme-toggle");
-
-      themeToggler?.addEventListener("click", function () {
-        document.documentElement.classList.toggle("dark");
-      });
-    });
+    // Add event listener to toggle theme
+    document.querySelectorAll(".theme-switch").forEach((item) =>
+      item.addEventListener("click", () => {
+        const isDark = ELE.classList.toggle("dark");
+        // Update styles based on the current theme
+        if (isDark) {
+          ELE.classList.add("text-gray-200", "bg-slate-900"); // Add dark mode styles
+          localStorage.setItem("theme", "dark");
+        } else {
+          ELE.classList.remove("text-gray-200", "bg-slate-900"); // Remove dark mode styles
+          localStorage.setItem("theme", "light");
+        }
+      })
+    );
 
     const options = [backDrop, menuBar, ...mobileNavItem];
 
@@ -461,6 +469,19 @@ export default {
       })
     );
 
+    // Check local storage and set theme accordingly
+    const savedTheme = localStorage.getItem("theme");
+    if (savedTheme) {
+      if (savedTheme === "dark") {
+        ELE.classList.add("dark");
+        ELE.classList.add("text-gray-200", "bg-slate-900"); // Add dark mode styles
+      } else {
+        ELE.classList.remove("dark");
+        ELE.classList.remove("text-gray-200", "bg-slate-900"); // Remove dark mode styles
+      }
+    }
+
+    // Typed.js for typing animations
     var typingEffect1 = new Typed(".typedTexts", {
       strings: ["Video Editor", "Logo Creator", "Developer", "Web Designer", " "],
       loop: true,
@@ -551,12 +572,14 @@ export default {
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const nameRegex = /^[A-Za-z\s]+$/;
       const messageRegex = /^[A-Za-z\s,.\(\)!?\-]+$/;
+      // Check for empty fields
 
       if (!nameRegex.test(this.name)) {
         this.showToast("Name can only contain letters and spaces.", "danger");
         return;
       }
 
+      // Validate email format
       if (!emailRegex.test(this.email)) {
         this.showToast("Please enter a valid email address.", "danger");
         return;
@@ -598,6 +621,7 @@ export default {
         this.showToast("An error occurred while submitting the form.", "danger");
       }
     },
+
     async handleDownload() {
       try {
         await downloadFile(); // Call the function to download the file
