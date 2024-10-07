@@ -1,6 +1,6 @@
 <template>
   <header class="fixed xl:block w-full py-4 lg:px-0 px-5 z-[999] duration-300">
-    <nav class="flex justify-between items-center max-w-6xl mx-auto px-2">
+    <nav class="flex justify-between items-center max-w-6xl mx-auto px-2 navbarclass">
       <div class="flex gap-4 items-center">
         <div>
           <h4 class="font-bold text-lg uppercase">Dex .</h4>
@@ -406,12 +406,14 @@ export default {
   mounted() {
     const header = document.querySelector("header");
 
+    // Function to toggle multiple classes based on a condition
     const toggleClasses = (element, classes, condition) => {
       classes.forEach((className) => {
         element.classList.toggle(className, condition);
       });
     };
 
+    // Handle scroll to add shadow and color
     window.addEventListener("scroll", () => {
       toggleClasses(
         header,
@@ -419,17 +421,28 @@ export default {
           "shadow-lg",
           "dark:sm:bg-slate-900",
           "dark:bg-slate-800",
-          "dark:text-white",
-          "bg-white",
+          "bg-white", // Light mode background
         ],
         window.scrollY > 0
       );
     });
 
+    // Function to update header text color based on theme
+    const updateHeaderTextColor = (isDark) => {
+      if (isDark) {
+        header.classList.add("text-white");
+        header.classList.remove("text-slate-800");
+      } else {
+        header.classList.remove("text-white");
+        header.classList.add("text-slate-800");
+      }
+    };
+
     const ELE = document.documentElement;
     const mobileNav = document.getElementById("mobile-nav");
     const mobileNavItem = document.querySelectorAll("#mobile-nav li");
     const backDrop = document.getElementById("backdrop");
+    const Navbarclasss = document.getElementById("navbarclass");
     const menuBar = document.querySelector("#menubar");
     const menuBarIcon = document.querySelector("#menubar i");
 
@@ -437,22 +450,29 @@ export default {
     ELE.classList.add("dark");
     ELE.classList.add("text-gray-200", "bg-slate-900"); // Add dark mode styles
 
+    // Update header text color for dark mode
+    updateHeaderTextColor(true);
+
     // Add event listener to toggle theme
     document.querySelectorAll(".theme-switch").forEach((item) =>
       item.addEventListener("click", () => {
         const isDark = ELE.classList.toggle("dark");
+
         // Update styles based on the current theme
         if (isDark) {
-          ELE.classList.add("text-gray-200", "bg-slate-900"); // Add dark mode styles
+          ELE.classList.add("text-gray-200", "bg-slate-900");
           localStorage.setItem("theme", "dark");
         } else {
-          ELE.classList.remove("text-gray-200", "bg-slate-900"); // Remove dark mode styles
+          ELE.classList.remove("text-gray-200", "bg-slate-900");
           localStorage.setItem("theme", "light");
         }
+
+        // Update header text color based on theme
+        updateHeaderTextColor(isDark);
       })
     );
 
-    const options = [backDrop, menuBar, ...mobileNavItem];
+    const options = [Navbarclasss, backDrop, menuBar, ...mobileNavItem];
 
     options.forEach((item) =>
       item.addEventListener("click", () => {
@@ -465,16 +485,20 @@ export default {
       })
     );
 
-    // Check local storage and set theme accordingly
+    // Check local storage and set theme accordingly on page load
     const savedTheme = localStorage.getItem("theme");
     if (savedTheme) {
-      if (savedTheme === "dark") {
+      const isDark = savedTheme === "dark";
+      if (isDark) {
         ELE.classList.add("dark");
-        ELE.classList.add("text-gray-200", "bg-slate-900"); // Add dark mode styles
+        ELE.classList.add("text-gray-200", "bg-slate-900");
       } else {
         ELE.classList.remove("dark");
-        ELE.classList.remove("text-gray-200", "bg-slate-900"); // Remove dark mode styles
+        ELE.classList.remove("text-gray-200", "bg-slate-900");
       }
+
+      // Update header text color based on saved theme
+      updateHeaderTextColor(isDark);
     }
 
     // Typed.js for typing animations
