@@ -406,38 +406,30 @@ export default {
   mounted() {
     const header = document.querySelector("header");
 
-    // Function to toggle multiple classes based on a condition
-    const toggleClasses = (element, classes, condition) => {
-      classes.forEach((className) => {
-        element.classList.toggle(className, condition);
+    if (header) {
+      // Function to toggle multiple classes based on a condition
+      const toggleClasses = (element, classes, condition) => {
+        classes.forEach((className) => {
+          element.classList.toggle(className, condition);
+        });
+      };
+
+      // Handle scroll to add shadow and color
+      window.addEventListener("scroll", () => {
+        toggleClasses(
+          header,
+          [
+            "shadow-lg",
+            "dark:sm:bg-slate-900",
+            "dark:bg-slate-800",
+            "bg-white", // Light mode background
+          ],
+          window.scrollY > 0
+        );
       });
-    };
+    }
 
-    // Handle scroll to add shadow and color
-    window.addEventListener("scroll", () => {
-      toggleClasses(
-        header,
-        [
-          "shadow-lg",
-          "dark:sm:bg-slate-900",
-          "dark:bg-slate-800",
-          "bg-white", // Light mode background
-        ],
-        window.scrollY > 0
-      );
-    });
-
-    // Function to update header text color based on theme
-    const updateHeaderTextColor = (isDark) => {
-      if (isDark) {
-        header.classList.add("text-white");
-        header.classList.remove("text-slate-800");
-      } else {
-        header.classList.remove("text-white");
-        header.classList.add("text-slate-800");
-      }
-    };
-
+    // Check for existence of other elements before adding event listeners
     const ELE = document.documentElement;
     const mobileNav = document.getElementById("mobile-nav");
     const mobileNavItem = document.querySelectorAll("#mobile-nav li");
@@ -446,59 +438,40 @@ export default {
     const menuBar = document.querySelector("#menubar");
     const menuBarIcon = document.querySelector("#menubar i");
 
-    // Force dark mode on page load
-    ELE.classList.add("dark");
-    ELE.classList.add("text-gray-200", "bg-slate-900"); // Add dark mode styles
+    if (ELE) {
+      ELE.classList.add("dark");
+      ELE.classList.add("text-gray-200", "bg-slate-900");
 
-    // Update header text color for dark mode
-    updateHeaderTextColor(true);
+      // Add event listener to toggle theme
+      document.querySelectorAll(".theme-switch").forEach((item) => {
+        item.addEventListener("click", () => {
+          const isDark = ELE.classList.toggle("dark");
 
-    // Add event listener to toggle theme
-    document.querySelectorAll(".theme-switch").forEach((item) =>
-      item.addEventListener("click", () => {
-        const isDark = ELE.classList.toggle("dark");
+          // Update styles based on the current theme
+          if (isDark) {
+            ELE.classList.add("text-gray-200", "bg-slate-900");
+            localStorage.setItem("theme", "dark");
+          } else {
+            ELE.classList.remove("text-gray-200", "bg-slate-900");
+            localStorage.setItem("theme", "light");
+          }
+        });
+      });
+    }
 
-        // Update styles based on the current theme
-        if (isDark) {
-          ELE.classList.add("text-gray-200", "bg-slate-900");
-          localStorage.setItem("theme", "dark");
-        } else {
-          ELE.classList.remove("text-gray-200", "bg-slate-900");
-          localStorage.setItem("theme", "light");
-        }
+    if (mobileNav && backDrop && menuBar && Navbarclasss) {
+      const options = [Navbarclasss, backDrop, menuBar, ...mobileNavItem];
 
-        // Update header text color based on theme
-        updateHeaderTextColor(isDark);
-      })
-    );
-
-    const options = [Navbarclasss, backDrop, menuBar, ...mobileNavItem];
-
-    options.forEach((item) =>
-      item.addEventListener("click", () => {
-        mobileNav.classList.toggle("h-0");
-        mobileNav.classList.toggle("h-96");
-        menuBarIcon.classList.toggle("fa-xmark");
-        menuBarIcon.classList.toggle("fa-bars");
-        backDrop.classList.toggle("hidden");
-        document.documentElement.classList.toggle("overflow-hidden");
-      })
-    );
-
-    // Check local storage and set theme accordingly on page load
-    const savedTheme = localStorage.getItem("theme");
-    if (savedTheme) {
-      const isDark = savedTheme === "dark";
-      if (isDark) {
-        ELE.classList.add("dark");
-        ELE.classList.add("text-gray-200", "bg-slate-900");
-      } else {
-        ELE.classList.remove("dark");
-        ELE.classList.remove("text-gray-200", "bg-slate-900");
-      }
-
-      // Update header text color based on saved theme
-      updateHeaderTextColor(isDark);
+      options.forEach((item) => {
+        item?.addEventListener("click", () => {
+          mobileNav.classList.toggle("h-0");
+          mobileNav.classList.toggle("h-96");
+          menuBarIcon.classList.toggle("fa-xmark");
+          menuBarIcon.classList.toggle("fa-bars");
+          backDrop.classList.toggle("hidden");
+          document.documentElement.classList.toggle("overflow-hidden");
+        });
+      });
     }
 
     // Typed.js for typing animations
