@@ -432,9 +432,8 @@ export default {
     // Check for existence of other elements before adding event listeners
     const ELE = document.documentElement;
     const mobileNav = document.getElementById("mobile-nav");
-    const mobileNavItem = document.querySelectorAll("#mobile-nav li");
     const backDrop = document.getElementById("backdrop");
-    const Navbarclasss = document.getElementById("navbarclass");
+    const Navbarclasss = document.querySelector(".navbarclass");
     const menuBar = document.querySelector("#menubar");
     const menuBarIcon = document.querySelector("#menubar i");
 
@@ -460,18 +459,23 @@ export default {
     }
 
     if (mobileNav && backDrop && menuBar && Navbarclasss) {
-      const options = [Navbarclasss, backDrop, menuBar, ...mobileNavItem];
-
-      options.forEach((item) => {
-        item?.addEventListener("click", () => {
-          mobileNav.classList.toggle("h-0");
-          mobileNav.classList.toggle("h-96");
-          menuBarIcon.classList.toggle("fa-xmark");
-          menuBarIcon.classList.toggle("fa-bars");
-          backDrop.classList.toggle("hidden");
-          document.documentElement.classList.toggle("overflow-hidden");
-        });
+      // Toggle mobile nav only when menuBar or backDrop is clicked
+      menuBar.addEventListener("click", () => {
+        toggleMobileNav();
       });
+
+      backDrop.addEventListener("click", () => {
+        toggleMobileNav();
+      });
+
+      function toggleMobileNav() {
+        mobileNav.classList.toggle("h-0");
+        mobileNav.classList.toggle("h-96");
+        menuBarIcon.classList.toggle("fa-xmark");
+        menuBarIcon.classList.toggle("fa-bars");
+        backDrop.classList.toggle("hidden");
+        document.documentElement.classList.toggle("overflow-hidden");
+      }
     }
 
     // Typed.js for typing animations
