@@ -450,7 +450,7 @@
               </li>
               <li>
                 <i class="fa-solid fa-phone"></i>
-                <p>+63 905 544 1795</p>
+                <p>+63 964 091 8033</p>
               </li>
             </ul>
             <div
