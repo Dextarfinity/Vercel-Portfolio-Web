@@ -500,7 +500,7 @@
 import Typed from "typed.js";
 import ScrollReveal from "scrollreveal";
 import { downloadFile } from "./supabaseJS";
-import { supabase } from "../supabaseClient"; // Import the Supabase client
+import emailjs from "@emailjs/browser";
 
 export default {
   name: "App",
@@ -707,26 +707,45 @@ export default {
       }
 
       try {
-        const { data, error } = await supabase
-          .from("messages")
-          .insert([{ name: this.name, email: this.email, message: this.message }]);
+        // Initialize EmailJS
+        emailjs.init("5gk81waZ31QtIJQWD");
 
-        if (error) {
-          console.error("Supabase insert error:", error);
-          this.showToast(
-            "An error occurred while submitting the form. Please try again.",
-            "danger"
-          );
-          return;
+        // Get current date and time
+        const now = new Date();
+        const time = now.toLocaleString("en-US", {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+          hour: "2-digit",
+          minute: "2-digit",
+          second: "2-digit",
+        });
+
+        // Send email
+        const response = await emailjs.send(
+          "service_4tmbhco",
+          "template_eska25m",
+          {
+            name: this.name,
+            email: this.email,
+            message: this.message,
+            time: time,
+            title: this.name,
+          }
+        );
+
+        if (response.status === 200) {
+          this.showToast("Thank you for your message!", "success");
+          this.name = "";
+          this.email = "";
+          this.message = "";
         }
-
-        this.showToast("Thank you for your message!", "success");
-        this.name = "";
-        this.email = "";
-        this.message = "";
       } catch (error) {
-        console.error("General form submission error:", error);
-        this.showToast("An error occurred while submitting the form.", "danger");
+        console.error("Email sending error:", error);
+        this.showToast(
+          "An error occurred while sending your message. Please try again.",
+          "danger"
+        );
       }
     },
 
