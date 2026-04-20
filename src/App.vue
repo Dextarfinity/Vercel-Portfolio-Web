@@ -24,11 +24,6 @@
         </li>
       </ul>
       <div class="flex items-center gap-6">
-        <a href="#contact">
-          <button class="btn btn-outline">
-            <i class="fa-regular fa-paper-plane"></i> Email Me
-          </button>
-        </a>
         <span class="theme-switch md:hidden">
           <i class="fa-solid fa-circle-half-stroke cursor-pointer"></i>
         </span>
@@ -71,11 +66,6 @@
     <li>
       <a href="#contact">Contact</a>
     </li>
-    <a href="#contact">
-      <button class="btn btn-outline" id="hireMe">
-        <i class="fa-regular fa-paper-plane"></i> Email Me
-      </button>
-    </a>
   </ul>
 
   <!-- Home -->
@@ -102,7 +92,7 @@
             <i class="fa-regular fa-envelope"></i> Hire Me
           </button>
           <button class="font-semibold border-b-2 border-gray-700 ml-4">
-            <a href="https://github.com/Dextarfinity"
+            <a href="https://drive.google.com/drive/folders/1wrAScGNB3x4ak5lPt1vc4mHhQaDDXe_t?usp=drive_link"
               ><i class="fa-solid fa-up-right-from-square"></i> See Portfolio</a
             >
           </button>
@@ -110,8 +100,7 @@
         <div class="md:w-96 md:ml-auto flex mt-9 gap-2">
           <i class="fa-solid fa-border-all mt-0.5 md:inline-block hidden"></i>
           <p class="text-xs text-balance leading-5 max-w-md px-2 mx-auto">
-            Experienced frontend developer with a passion of well user-friendly website
-            creation.
+            Creative virtual assistant skilled in video editing, graphic design, and content creation with basic web design knowledge.
           </p>
         </div>
         <div
@@ -145,20 +134,22 @@
         <ul
           class="text-2xl data-[slot=count]:*:text-3xl data-[slot=count]:*:font-bold leading-[3.14rem] text-center pt-5 lg:block md:flex items-center justify-between"
         >
-          <li data-slot="count">4+</li>
+          <li data-slot="count">4</li>
           <li>Year of <span class="text-primary">Experience</span></li>
           <br />
-          <li data-slot="count">4+</li>
+          <li data-slot="count">12+</li>
           <li>Completed <span class="text-primary">Projects</span></li>
-          <li>
-            <button
-              class="btn btn-outline lg:mt-10 md:mt-0 mt-10"
-              id="downloadFile"
-              @click="handleDownload"
-            >
-              <i class="fa-solid fa-download"></i> Download CV
-            </button>
-          </li>
+            <p class="text-xs text-balance leading-5 max-w-md px-2 mx-auto">
+              Including Websites and Applications Development, Graphics Design, Video Editing, Transcription, and Data Entry.
+            </p>
+            <li class="flex gap-2 justify-center">
+              <button class="btn btn-outline lg:mt-10 md:mt-0 mt-10" id="downloadButton">
+                <i class="fa-solid fa-download"></i> Download CV
+              </button>
+              <button class="btn btn-outline lg:mt-10 md:mt-0 mt-10" id="downloadResumeButton">
+                <i class="fa-solid fa-download"></i> Download Resume
+              </button>
+            </li>
         </ul>
       </div>
     </div>
@@ -170,86 +161,206 @@
       <div class="text-center text-balance aboutintro">
         <h3>About me</h3>
         <p class="px-2 mt-3 text-gray-500">
-          I am a well-versed in HTML, CSS, and JavaScript, and some of other frameworks
-          and libraries, which allows me to implement interactive features. Additionally,
-          I have experienced working as a Graphic Designer such as Adobe Illustrator,
-          Photoshop, Premiere and After Effects.
-        </p>
+           I am a dedicated and reliable Virtual Assistant with experience in video editing, graphic design, and content creation. I help businesses create engaging visuals, edit videos, and manage digital content to improve their online presence.
+
+            I specialize in designing eye-catching YouTube thumbnails, editing videos for social media, and creating clean, professional graphics. I also have experience in transcription, subtitle creation, and data entry, ensuring accuracy and attention to detail in every task.
+
+            In addition, I have basic knowledge in web design, UI/UX, and web development, which allows me to understand both the creative and technical side of online projects.
+
+           I am currently taking up a Bachelor of Science in Information Technology, and I am continuously improving my skills to deliver better results. I am hardworking, fast learner, and committed to meeting deadlines.
+
+            If you're looking for someone dependable who can support your business and grow with your team, I’d be happy to help.
+          </p>
       </div>
       <div
-        class="max-w-2xl grid md:grid-cols-1 gap-6 px-2 sm:grid-cols-3 *:text-lg *:sm:max-w-full *:max-w-sm hover:*:brightness-90 *:mx-auto *:sm:text-left *:text-center *:hover:cursor-pointer *:shadow-sm mt-10 mx-auto *:rounded-xl *:bg-gray-100 *:dark:bg-slate-800 *:p-7 *:flex *:md:flex-row *:flex-col *:items-center *:gap-12"
-      >
-        <div class="about1">
-          <div class="*:text-primary">
-            <i class="fa-solid fa-pen-nib"></i>
-            <h6 class="font-semibold whitespace-nowrap mt-3">Frontend</h6>
+          class="max-w-2xl grid md:grid-cols-1 gap-6 px-2 sm:grid-cols-3 *:text-lg *:sm:max-w-full *:max-w-sm hover:*:brightness-90 *:mx-auto *:sm:text-left *:text-center *:hover:cursor-pointer *:shadow-sm mt-10 mx-auto *:rounded-xl *:bg-gray-100 *:dark:bg-slate-800 *:p-7 *:flex *:md:flex-row *:flex-col *:items-center *:gap-12"
+        >
+          <div class="about1">
+            <div class="*:text-primary">
+              <i class="fa-solid fa-pen-nib"></i>
+              <h6 class="font-semibold whitespace-nowrap mt-3">
+                Frontend
+              </h6>
+            </div>
+            <div>
+              <p
+                class="text-xs text-gray-600 dark:text-gray-400 leading-5 text-balance"
+              >
+                I am well on using HTML, CSS, Bootstrap, Tailwind, JavaScript, and Vue when it comes to frontend.
+              </p>
+            </div>
+            <i class="fa-solid fa-code text-primary cursor-pointer"></i>
           </div>
-          <div>
-            <p class="text-xs text-gray-600 dark:text-gray-400 leading-5 text-balance">
-              I am well on using HTML, CSS, Bootstrap, Tailwind, JavaScript, and Vue when
-              it comes to frontend.
-            </p>
+          <div class="about2">
+            <div class="*:text-primary">
+              <i class="fa-solid fa-server"></i>
+              <h6 class="font-semibold whitespace-nowrap mt-3">Backend</h6>
+            </div>
+            <div>
+              <p
+                class="text-xs text-gray-600 dark:text-gray-400 leading-5 text-balance"
+              >
+              I don't have much expertise on backends but I am well on using PHP, Java and Python when it comes to backend.
+              </p>
+            </div>
+            <i class="fa-solid fa-gears text-primary cursor-pointer"></i>
           </div>
-          <i class="fa-solid fa-font text-primary cursor-pointer"></i>
+          <div class="about3">
+            <div class="*:text-primary">
+              <i class="fa-solid fa-database"></i>
+              <h6 class="font-semibold whitespace-nowrap mt-3">Database</h6>
+            </div>
+            <div>
+              <p
+                class="text-xs text-gray-600 dark:text-gray-400 leading-5 text-balance"
+              >
+              I don't have much expertise on databases but I am well on using Supabase and PostgreSQL when it comes to database systems.
+              </p>
+            </div>
+            <i class="fa-solid fa-table text-primary cursor-pointer"></i>
+          </div>
+          <div class="about2">
+            <div class="*:text-primary">
+              <i class="fa-solid fa-closed-captioning"></i>
+              <h6 class="font-semibold whitespace-nowrap mt-3">Transcription</h6>
+            </div>
+            <div>
+              <p
+                class="text-xs text-gray-600 dark:text-gray-400 leading-5 text-balance"
+              >
+             Converting audio and video into accurate written text with attention to detail and clarity.
+              </p>
+            </div>
+            <i class="fa-solid fa-quote-left text-primary cursor-pointer"></i>
+          </div>
+          <div class="about3">
+            <div class="*:text-primary">
+              <i class="fa-solid fa-keyboard"></i>
+              <h6 class="font-semibold whitespace-nowrap mt-3">Data Entry</h6>
+            </div>
+            <div>
+              <p
+                class="text-xs text-gray-600 dark:text-gray-400 leading-5 text-balance"
+              >
+              Accurately inputting and organizing data to maintain clean and reliable records.
+              </p>
+            </div>
+            <i class="fa-solid fa-list-check text-primary cursor-pointer"></i>
+          </div>
+          <div class="about2">
+            <div class="*:text-primary">
+              <i class="fa-solid fa-wand-magic-sparkles"></i>
+              <h6 class="font-semibold whitespace-nowrap mt-3">UI/UX Design</h6>
+            </div>
+            <div>
+              <p
+                class="text-xs text-gray-600 dark:text-gray-400 leading-5 text-balance"
+              >
+              Creating user-friendly interfaces that improve usability and overall user experience.
+              </p>
+            </div>
+            <i class="fa-solid fa-palette text-primary cursor-pointer"></i>
+          </div>
+          <div class="about3">
+            <div class="*:text-primary">
+              <i class="fa-solid fa-film"></i>
+              <h6 class="font-semibold whitespace-nowrap mt-3">Video Editing</h6>
+            </div>
+            <div>
+              <p
+                class="text-xs text-gray-600 dark:text-gray-400 leading-5 text-balance"
+              >
+              Editing videos with smooth transitions, effects, and storytelling for engaging content.
+              </p>
+            </div>
+            <i class="fa-solid fa-play text-primary cursor-pointer"></i>
+          </div>
+          <div class="about2">
+            <div class="*:text-primary">
+              <i class="fa-solid fa-palette"></i>
+              <h6 class="font-semibold whitespace-nowrap mt-3">Graphics Design</h6>
+            </div>
+            <div>
+              <p
+                class="text-xs text-gray-600 dark:text-gray-400 leading-5 text-balance"
+              >
+              Designing creative visuals for branding, marketing, and digital content.
+              </p>
+            </div>
+            <i class="fa-solid fa-paintbrush text-primary cursor-pointer"></i>
+          </div>
+          <div class="about3">
+            <div class="*:text-primary">
+              <i class="fa-solid fa-image"></i>
+              <h6 class="font-semibold whitespace-nowrap mt-3">Thumbnail & Social Media Design</h6>
+            </div>
+            <div>
+              <p
+                class="text-xs text-gray-600 dark:text-gray-400 leading-5 text-balance"
+              >
+              Creating eye-catching thumbnails and social media graphics that increase engagement.
+              </p>
+            </div>
+            <i class="fa-solid fa-hashtag text-primary cursor-pointer"></i>
+          </div>
         </div>
-        <div class="about2">
-          <div class="*:text-primary">
-            <i class="fa-regular fa-object-ungroup"></i>
-            <h6 class="font-semibold whitespace-nowrap mt-3">Backend</h6>
-          </div>
-          <div>
-            <p class="text-xs text-gray-600 dark:text-gray-400 leading-5 text-balance">
-              I don't have much expertise on backends but I am well on using PHP, Java and
-              Python when it comes to backend.
-            </p>
-          </div>
-          <i class="fa-brands fa-squarespace cursor-pointer text-primary"></i>
-        </div>
-        <div class="about3">
-          <div class="*:text-primary">
-            <i class="fa-solid fa-chart-simple"></i>
-            <h6 class="font-semibold whitespace-nowrap mt-3">Database</h6>
-          </div>
-          <div>
-            <p class="text-xs text-gray-600 dark:text-gray-400 leading-5 text-balance">
-              I don't have much expertise on databases but I am well on using Supabase and
-              PostgreSQL when it comes to database systems.
-            </p>
-          </div>
-          <i class="fa-solid fa-chart-pie text-primary cursor-pointer"></i>
-        </div>
-      </div>
     </div>
   </section>
 
   <section id="projects" class="container min-h-screen flex-center">
-    <div class="text-center text-balance text-gray-800 dark:text-gray-200">
-      <h3 class="projecthead">Projects</h3>
-      <br />
-      <br />
-      <div class="project-container">
-        <div
-          class="project-box text-primary dark:text-white bg-white dark:bg-gray-700 project1"
-        >
-          <i class="fa-solid fa-briefcase text-primary dark:text-white"></i>
-          <h3 class="text-gray-800 dark:text-white">Completed</h3>
-          <label class="text-gray-600 dark:text-gray-300">4+ Finished Projects</label>
-        </div>
-        <div class="project-box bg-white dark:bg-gray-700 project2">
-          <i class="fa-regular fa-user text-gray-800 dark:text-white"></i>
-          <h3 class="text-gray-800 dark:text-white">Clients</h3>
-          <label class="text-gray-600 dark:text-gray-300">3 Happy Clients</label>
-        </div>
-        <div class="project-box bg-white dark:bg-gray-700 project3">
-          <i class="fa-solid fa-award text-gray-800 dark:text-white"></i>
-          <h3 class="text-gray-800 dark:text-white">Experience</h3>
-          <label class="text-gray-600 dark:text-gray-300"
-            >Almost 4 years of field in Graphics Designer</label
-          >
+      <div class="text-center text-balance text-gray-800 dark:text-gray-200">
+        <h3 class="projecthead">Projects</h3>
+        <br />
+        <br />
+        <div class="project-container">
+          <div class="project-box text-primary dark:text-white  bg-white dark:bg-gray-700 project1">
+            <i class="fa-solid fa-briefcase text-primary dark:text-white"></i>
+            <h3 class="text-gray-800 dark:text-white">Completed</h3>
+            <label class="text-gray-600 dark:text-gray-300">12+ Finished Projects</label>
+          </div>
+          <div class="project-box  bg-white dark:bg-gray-700 project2">
+            <i class="fa-regular fa-user text-gray-800 dark:text-white "></i>
+            <h3 class="text-gray-800 dark:text-white">Clients</h3>
+            <label class="text-gray-600 dark:text-gray-300">10+ Happy Clients</label>
+          </div>
+          <div class="project-box  bg-white dark:bg-gray-700 project3">
+            <i class="fa-solid fa-award text-gray-800 dark:text-white"></i>
+            <h3 class="text-gray-800 dark:text-white">Experience</h3>
+            <label class="text-gray-600 dark:text-gray-300">Almost 4 years of field in Graphics Designer</label>
+          </div>
+          <div class="project-box  bg-white dark:bg-gray-700 project3">
+            <i class="fa-solid fa-award text-gray-800 dark:text-white"></i>
+            <h3 class="text-gray-800 dark:text-white">Experience</h3>
+            <label class="text-gray-600 dark:text-gray-300">Almost 3 years of field in Video Editing</label>
+          </div>
+          <div class="project-box  bg-white dark:bg-gray-700 project3">
+            <i class="fa-solid fa-award text-gray-800 dark:text-white"></i>
+            <h3 class="text-gray-800 dark:text-white">Experience</h3>
+            <label class="text-gray-600 dark:text-gray-300">1 year of field in Transcipting</label>
+          </div>
+         <div class="project-box  bg-white dark:bg-gray-700 project3">
+            <i class="fa-solid fa-award text-gray-800 dark:text-white"></i>
+            <h3 class="text-gray-800 dark:text-white">Experience</h3>
+            <label class="text-gray-600 dark:text-gray-300">4 years of field in Website Development <br> and Application Development</label>
+          </div>
+          <div class="project-box  bg-white dark:bg-gray-700 project3">
+            <i class="fa-solid fa-award text-gray-800 dark:text-white"></i>
+            <h3 class="text-gray-800 dark:text-white">Experience</h3>
+            <label class="text-gray-600 dark:text-gray-300">Less than 1 year of field in Data Entry</label>
+          </div>
+          <div class="project-box  bg-white dark:bg-gray-700 project3">
+            <i class="fa-solid fa-award text-gray-800 dark:text-white"></i>
+            <h3 class="text-gray-800 dark:text-white">Experience</h3>
+            <label class="text-gray-600 dark:text-gray-300">2 years of field in UI/UX Designing (Figma and so on)</label>
+          </div>
+          <div class="project-box  bg-white dark:bg-gray-700 project3">
+            <i class="fa-solid fa-award text-gray-800 dark:text-white"></i>
+            <h3 class="text-gray-800 dark:text-white">Experience</h3>
+            <label class="text-gray-600 dark:text-gray-300">1 year of field in Database Management</label>
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
   <!-- Contact -->
   <section
