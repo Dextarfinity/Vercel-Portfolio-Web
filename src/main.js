@@ -11,7 +11,7 @@ const assetBase = `${import.meta.env.BASE_URL}assets/`
 // Download CV Button
 document.getElementById("downloadButton").addEventListener("click", () => {
   const link = document.createElement("a");
-  link.href = `${assetBase}Cover%20Letter%20Glomer%20Celestino.pdf?v=2`;
+  link.href = `${assetBase}Cover-Letter_Glomer-Celestino.pdf`;
   link.download = "Cover-Letter_Glomer-Celestino.pdf";
   link.click();
 });
