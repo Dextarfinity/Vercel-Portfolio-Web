@@ -12,7 +12,7 @@ const assetBase = `${import.meta.env.BASE_URL}assets/`
 document.getElementById("downloadButton").addEventListener("click", () => {
   const link = document.createElement("a");
   link.href = `${assetBase}Cover%20Letter%20Glomer%20Celestino.pdf`;
-  link.download = "Cover Letter Glomer Celestino.pdf";
+  link.download = "Cover-Letter_Glomer-Celestino.pdf";
   link.click();
 });
 
