@@ -6,7 +6,6 @@ import './output.css'
 createApp(App).mount('#app')
 
 const assetBase = `${import.meta.env.BASE_URL}assets/`
-// updates
 
 // Download CV Button
 document.getElementById("downloadButton").addEventListener("click", () => {
