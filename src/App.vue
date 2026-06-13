@@ -1,4 +1,5 @@
 <template>
+  <div>
   <header class="fixed xl:block w-full py-4 lg:px-0 px-5 z-[999] duration-300">
     <nav class="flex justify-between items-center max-w-6xl mx-auto px-2 navbarclass">
       <div class="flex gap-4 items-center">
@@ -494,6 +495,7 @@
       </li>
     </ul>
   </footer>
+  </div>
 </template>
 
 <script>

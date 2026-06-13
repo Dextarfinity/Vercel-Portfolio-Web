@@ -5,11 +5,13 @@ import './output.css'
 
 createApp(App).mount('#app')
 
+const assetBase = `${import.meta.env.BASE_URL}assets/`
+
 
 // Download CV Button
 document.getElementById("downloadButton").addEventListener("click", () => {
   const link = document.createElement("a");
-  link.href = "assets/Cover Letter Glomer Celestino.pdf";
+  link.href = `${assetBase}Cover%20Letter%20Glomer%20Celestino.pdf`;
   link.download = "Cover Letter Glomer Celestino.pdf";
   link.click();
 });
@@ -17,7 +19,7 @@ document.getElementById("downloadButton").addEventListener("click", () => {
 // Download Resume Button
 document.getElementById("downloadResumeButton").addEventListener("click", () => {
   const link = document.createElement("a");
-  link.href = "assets/Celestino, Glomer Pimentel - Resume.pdf";
+  link.href = `${assetBase}Celestino%2C%20Glomer%20Pimentel%20-%20Resume.pdf`;
   link.download = "Celestino, Glomer Pimentel - Resume.pdf";
   link.click();
 });
